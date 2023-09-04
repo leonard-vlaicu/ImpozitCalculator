@@ -1,0 +1,99 @@
+<div style="display: flex; flex-direction: row">
+
+  <mat-card class="mat-mdc-elevation-specific mat-elevation-z10
+                    mat-background-accent
+                    mat-accent">
+    <mat-card-header class="">
+      <mat-card-title>Calcul SRL</mat-card-title>
+    </mat-card-header>
+    <mat-card-content style="margin-top: 30px">
+      <div style="display: flex; flex-direction: column">
+        <mat-form-field appearance="outline">
+          <mat-label>Numar luni</mat-label>
+          <input type="number" matInput [(ngModel)]="numarLuni">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Venituri firma</mat-label>
+          <input type="number" matInput [value]="calculVenituriFirma().toString()">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Cheltuieli firma</mat-label>
+          <input type="number" matInput [(ngModel)]="cheltuieliFirmaSRL">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Cheltuieli contabil</mat-label>
+          <input type="number" matInput [value]="calculCheltuieliContabilSRL().toString()">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Cheltuieli angajat</mat-label>
+          <input type="number" disabled="true" matInput value="0">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Profit Total</mat-label>
+          <input disabled="true" matInput [value]="calculateProfitSRL().toString()">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Profit dupa taxe</mat-label>
+          <input disabled="true" matInput [value]="calculateProfitAfterTaxSRL().toString()">
+          <mat-hint align="start">Valoare taxe = {{calculateTaxSRL()}}</mat-hint>
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="mat-mdc-elevation-specific mat-elevation-z10">
+    <mat-card-header>
+      <mat-card-title>Calcul MICRO</mat-card-title>
+    </mat-card-header>
+
+      <mat-card-content style="margin-top: 30px">
+        <div style="display: flex; flex-direction: column">
+          <mat-form-field appearance="outline">
+            <mat-label>Numar luni</mat-label>
+            <input type="number" matInput [(ngModel)]="numarLuni">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Venituri firma</mat-label>
+            <input type="number" matInput [value]="calculVenituriFirma().toString()">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Cheltuieli firma</mat-label>
+            <input type="number" matInput [(ngModel)]="cheltuieliFirmaMicro">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Cheltuieli contabil</mat-label>
+            <input type="number" matInput [value]="calculCheltuieliContabilMicro().toString()">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Cheltuieli angajat</mat-label>
+            <input type="number" matInput [value]="calculCheltuieliAngajat().toString()">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Profit Total</mat-label>
+            <input disabled="true" matInput [value]="calculateProfitMicro().toString()">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Profit dupa taxe</mat-label>
+            <input disabled="true" matInput [value]="calculateProfitAfterTaxMicro().toString()">
+            <mat-hint align="start">Valoare taxe = {{calculateTaxMicro() + calculCheltuieliAngajat()}}</mat-hint>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+  </mat-card>
+
+  <mat-card style="width: auto; height: fit-content">
+    <mat-card-content>Diferenta profit: {{(calculateProfitAfterTaxMicro() - calculateProfitAfterTaxSRL()).toString()}}</mat-card-content>
+  </mat-card>
+</div>
