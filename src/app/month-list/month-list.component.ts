@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 /**
  * @title Component for calculating taxes
@@ -9,12 +9,10 @@ import {Component} from '@angular/core';
   styleUrls: ['./month-list.component.scss']
 })
 export class MonthListComponent {
-  readonly TAXA_SRL = 16 / 100;
-  readonly TAXA_MICRO = 1 / 100;
+  readonly TAXA_SRL = 16/100;
+  readonly TAXA_MICRO  = 1/100;
 
-  numarLuni: number = 0;
-
-  venituriFirma: number = 15000;
+  venituriFirma: number = 0;
 
   cheltuieliFirmaSRL: number = 0;
   cheltuieliFirmaMicro: number = 0;
@@ -25,59 +23,40 @@ export class MonthListComponent {
   profitAfterTaxSRL: number = 0;
   profitAfterTaxMicro: number = 0;
 
-  cheltuieliContabilSRL: number = 300;
-  cheltuieliContabilMicro: number = 350;
+  cheltuieliContabilSRL: number = 300 * 12;
+  cheltuieliContabilMicro: number = 350 * 12;
 
   // cheltuieliAngajat: number = 1165 * 12;
-  cheltuieliAngajat: number = 1189;
+  cheltuieliAngajat: number = 15000;
 
-
-  calculVenituriFirma(): number {
-    return this.venituriFirma * this.numarLuni;
-  }
+  numarLuni: number = 0;
 
   /**
    * Calculate the profit of the company
    * @returns profit of the company
    */
   calculateProfitSRL(): number {
-    this.profitFirmaSRL = this.calculVenituriFirma() - (this.cheltuieliFirmaSRL + this.calculCheltuieliContabilSRL());
+    this.profitFirmaSRL = this.venituriFirma - (this.cheltuieliFirmaSRL + this.cheltuieliContabilSRL);
     return this.profitFirmaSRL;
   }
-
   calculateProfitMicro(): number {
-    this.profitFirmaMicro = this.calculVenituriFirma() - (this.calculateTaxMicro() + this.cheltuieliFirmaMicro
-      + this.calculCheltuieliContabilMicro() + this.calculCheltuieliAngajat());
+    this.profitFirmaMicro = this.venituriFirma - (this.calculateTaxMicro() + this.cheltuieliFirmaMicro
+                          + this.cheltuieliContabilMicro + this.cheltuieliAngajat);
     return this.profitFirmaMicro;
   }
-
   calculateTaxSRL(): number {
     return this.profitFirmaSRL * this.TAXA_SRL;
   }
-
   calculateTaxMicro(): number {
-    return this.calculVenituriFirma() * this.TAXA_MICRO;
+    return this.venituriFirma * this.TAXA_MICRO;
   }
 
   calculateProfitAfterTaxSRL(): number {
     this.profitAfterTaxSRL = this.profitFirmaSRL - this.calculateTaxSRL();
     return this.profitAfterTaxSRL;
   }
-
   calculateProfitAfterTaxMicro(): number {
     this.profitAfterTaxMicro = this.profitFirmaMicro;
     return this.profitAfterTaxMicro;
-  }
-
-  calculCheltuieliContabilSRL(): number {
-    return this.cheltuieliContabilSRL * this.numarLuni;
-  }
-
-  calculCheltuieliContabilMicro(): number {
-    return this.cheltuieliContabilMicro * this.numarLuni;
-  }
-
-  calculCheltuieliAngajat(): number {
-    return this.cheltuieliAngajat * this.numarLuni;
   }
 }
